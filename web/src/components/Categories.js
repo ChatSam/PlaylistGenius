@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import './Categories.css';
 
@@ -10,12 +10,8 @@ const Categories = () => {
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-    const fetchOnce = useRef(false);
 
     useEffect(() => {
-        if (fetchOnce.current) return;
-        fetchOnce.current = true; // Mark as fetched before calling the API
-
         const token = localStorage.getItem('spotify_access_token');
 
         if (!token) {
@@ -26,7 +22,7 @@ const Categories = () => {
 
         const fetchCategories = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/categories?token=${token}&playlist_id=${playlistId}&num_categories=${numCategories}&no-cache=${Date.now()}`);
+                const response = await fetch(`http://localhost:5000/categories?token=${token}&playlist_id=${playlistId}&num_categories=${numCategories}`);
                 const data = await response.json();
                 if (response.ok) {
                     setCategories(data);
@@ -42,6 +38,12 @@ const Categories = () => {
 
         fetchCategories();
     }, [playlistId, numCategories]);
+
+    const handleGenerate = () => {
+        navigate(`/generate-results/${playlistId}?numCategories=${numCategories}`, {
+            state: { categories }
+        });
+    };
 
     return (
         <div className="categories-container">
@@ -63,6 +65,8 @@ const Categories = () => {
                     ))}
                 </div>
             )}
+
+            <button className="button" onClick={handleGenerate}>Generate</button>
         </div>
     );
 };

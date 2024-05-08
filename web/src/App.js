@@ -5,6 +5,7 @@ import Callback from './components/Callback';
 import Dashboard from './components/Dashboard';
 import Categorize from './components/Categorize';
 import Categories from './components/Categories';
+import GenerateResults from './components/GenerateResults';
 import './global.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/categorize/:playlistId" element={<Categorize />} />
                     <Route path="/categories/:playlistId" element={<Categories />} />
+                    <Route path="/generate-results/:playlistId" element={<GenerateResults />} />
                 </Routes>
             </div>
         </Router>
