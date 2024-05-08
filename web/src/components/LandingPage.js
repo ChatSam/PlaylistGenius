@@ -1,6 +1,6 @@
-// src/components/LandingPage.js
 import React, { useEffect, useState } from 'react';
-import Dashboard from "./Dashboard";
+import Dashboard from './Dashboard';
+import './LandingPage.css';
 
 const clientId = '61a763c599484a729f9b5a31c1057143'; // Replace with your Spotify app's client ID
 const redirectUri = 'http://localhost:3000'; // Replace with your app's redirect URI
@@ -11,7 +11,6 @@ const LandingPage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        // This effect runs once on component mount to check for an existing login state.
         const token = localStorage.getItem('spotify_access_token');
         if (token) {
             setIsLoggedIn(true);
@@ -41,11 +40,11 @@ const LandingPage = () => {
     }
 
     return (
-        <div>
+        <div className="landing-page-container">
             <h1>Playlist Genius</h1>
             <p>Find the perfect playlist for any mood or occasion.</p>
-            <a href={authUrl}>
-                <button>Login to Spotify</button>
+            <a href={authUrl} className="button-link">
+                <button className="button">Login to Spotify</button>
             </a>
         </div>
     );

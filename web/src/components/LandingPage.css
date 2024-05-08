@@ -1,0 +1,18 @@
+/* LandingPage.css */
+
+.landing-page-container {
+    width: 80%;
+    margin: 0 auto;
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+}
+
+h1 {
+    color: #1db954;
+    margin-bottom: 20px;
+}
+
+.button-link {
+    text-decoration: none;
+}

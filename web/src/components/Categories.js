@@ -1,31 +1,21 @@
-import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import './Categorize.css';
+import React from 'react';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import './Categories.css';
 
-const Categorize = () => {
-  const [numCategories, setNumCategories] = useState(5);
-  const navigate = useNavigate();
-  const { playlistId } = useParams();
+const Categories = () => {
+    const navigate = useNavigate();
+    const { playlistId } = useParams();
+    const [searchParams] = useSearchParams();
+    const numCategories = searchParams.get('numCategories');
 
-  const handleGenerate = () => {
-    navigate(`/categories/${playlistId}?numCategories=${numCategories}`);
-  };
-
-  return (
-    <div className="categorize-container">
-      <button className="back-button" onClick={() => navigate(-1)}>Back</button>
-      <h2>Categorize Playlist</h2>
-      <label>
-        Number of Categories:
-        <select value={numCategories} onChange={(e) => setNumCategories(Number(e.target.value))}>
-          {[...Array(9).keys()].map(i => (
-            <option key={i + 2} value={i + 2}>{i + 2}</option>
-          ))}
-        </select>
-      </label>
-      <button className="generate-button" onClick={handleGenerate}>Generate</button>
-    </div>
-  );
+    return (
+        <div className="categories-container">
+            <button className="button" onClick={() => navigate(-1)}>Back</button>
+            <h2>Categories for Playlist: {playlistId}</h2>
+            <p>Number of Categories: {numCategories}</p>
+            {/* Add further categorization UI logic here */}
+        </div>
+    );
 };
 
-export default Categorize;
+export default Categories;

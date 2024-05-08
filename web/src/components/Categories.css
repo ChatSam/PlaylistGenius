@@ -1,0 +1,12 @@
+/* Categories.css */
+
+.categories-container {
+    width: 80%;
+    margin: 0 auto;
+    color: white;
+    text-align: center;
+}
+
+h2 {
+    color: #1db954;
+}

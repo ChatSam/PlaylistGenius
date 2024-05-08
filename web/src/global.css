@@ -1,0 +1,37 @@
+/* global.css */
+
+/* Global reset and basic styles */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+}
+
+.App {
+    text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #1db954;
+}
+
+/* Button Styles */
+.button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #1db954;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #18a744;
+}
+

@@ -69,48 +69,48 @@ const Dashboard = () => {
     }
 
     return (
-      <div className="dashboard-container">
-          <h1>Your Playlists</h1>
-          {playlists.length > 0 ? (
-            <table className="playlist-table">
-                <thead>
-                <tr>
-                    <th>COVER</th>
-                    <th>NAME</th>
-                    <th>TRACK COUNT</th>
-                    <th>OWNER</th>
-                </tr>
-                </thead>
-                <tbody>
-                {playlists.map(playlist => (
-                  <tr
-                    key={playlist.id}
-                    onClick={() => handlePlaylistClick(playlist)}
-                    className="clickable-row"
-                  >
-                      <td>
-                          {playlist.images && playlist.images.length > 0 ? (
-                            <img
-                              src={playlist.images[0].url}
-                              alt={playlist.name}
-                              className="playlist-cover"
-                            />
-                          ) : (
-                            <div className="no-cover">No Image</div>
-                          )}
-                      </td>
-                      <td>{playlist.name}</td>
-                      <td>{playlist.tracks.total}</td>
-                      <td>{playlist.owner.display_name || playlist.owner.id}</td>
-                  </tr>
-                ))}
-                </tbody>
-            </table>
-          ) : (
-            <p>No playlists found</p>
-          )}
-          {isLoading && <p>Loading more playlists...</p>}
-      </div>
+        <div className="dashboard-container">
+            <h1>Your Playlists</h1>
+            {playlists.length > 0 ? (
+                <table className="playlist-table">
+                    <thead>
+                    <tr>
+                        <th>COVER</th>
+                        <th>NAME</th>
+                        <th>TRACK COUNT</th>
+                        <th>OWNER</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {playlists.map(playlist => (
+                        <tr
+                            key={playlist.id}
+                            onClick={() => handlePlaylistClick(playlist)}
+                            className="clickable-row"
+                        >
+                            <td>
+                                {playlist.images && playlist.images.length > 0 ? (
+                                    <img
+                                        src={playlist.images[0].url}
+                                        alt={playlist.name}
+                                        className="playlist-cover"
+                                    />
+                                ) : (
+                                    <div className="no-cover">No Image</div>
+                                )}
+                            </td>
+                            <td>{playlist.name}</td>
+                            <td>{playlist.tracks.total}</td>
+                            <td>{playlist.owner.display_name || playlist.owner.id}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p>No playlists found</p>
+            )}
+            {isLoading && <p>Loading more playlists...</p>}
+        </div>
     );
 };
 

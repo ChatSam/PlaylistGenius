@@ -7,17 +7,22 @@
     text-align: center;
 }
 
-.back-button, .generate-button {
+h2 {
+    color: #1db954;
+}
+
+select {
     margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #1db954;
-    border: none;
+    padding: 10px;
+    background-color: #333;
     color: white;
-    border-radius: 20px;
+    border: 1px solid #1db954;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
     cursor: pointer;
 }
 
-.back-button:hover, .generate-button:hover {
-    background-color: #18a744;
+select:focus {
+    border-color: #18a744;
 }
-
