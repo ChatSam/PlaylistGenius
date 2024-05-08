@@ -12,6 +12,7 @@ const GenerateResults = () => {
     const [results, setResults] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab] = useState(0);
     const fetchOnce = useRef(false);
 
     useEffect(() => {
@@ -54,6 +55,10 @@ const GenerateResults = () => {
         fetchResults();
     }, [playlistId, numCategories, categories]);
 
+    const handleTabClick = (index) => {
+        setActiveTab(index);
+    };
+
     return (
         <div className="generate-results-container">
             <button className="button" onClick={() => navigate(-1)}>Back</button>
@@ -64,22 +69,47 @@ const GenerateResults = () => {
             ) : error ? (
                 <p>{error}</p>
             ) : (
-                <div className="results-list">
-                    {results.map((songs, index) => (
-                        <div key={index} className="result-category">
-                            <h3>{categories[index].category_name}</h3>
-                            <p>{categories[index].description}</p>
-                            <ul>
-                                {songs.map((song, idx) => (
-                                    <li key={idx}>
-                                        <strong>{song.track_name}</strong> - {song.artists.join(', ')}
-                                        <br />
-                                        <small>{song.reasoning}</small>
-                                    </li>
+                <div className="results-content">
+                    <ul className="tabs">
+                        {categories.map((category, index) => (
+                            <li
+                                key={index}
+                                className={`tab ${activeTab === index ? 'active' : ''}`}
+                                onClick={() => handleTabClick(index)}
+                            >
+                                {category.category_name}
+                            </li>
+                        ))}
+                    </ul>
+
+                    {results[activeTab] && (
+                        <div className="category-details">
+                            <h3>{categories[activeTab].category_name}</h3>
+                            <p>{categories[activeTab].description}</p>
+                            <table className="songs-table">
+                                <thead>
+                                <tr>
+                                    <th>Track Name</th>
+                                    <th>Artists</th>
+                                    <th>Album</th>
+                                    <th>Release Date</th>
+                                    <th>Reasoning</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {results[activeTab].map((song, index) => (
+                                    <tr key={index}>
+                                        <td>{song.track_name}</td>
+                                        <td>{song.artists.join(', ')}</td>
+                                        <td>{song.album}</td>
+                                        <td>{song.release_date}</td>
+                                        <td>{song.reasoning}</td>
+                                    </tr>
                                 ))}
-                            </ul>
+                                </tbody>
+                            </table>
                         </div>
-                    ))}
+                    )}
                 </div>
             )}
         </div>
