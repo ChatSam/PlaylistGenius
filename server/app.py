@@ -28,7 +28,6 @@ def exchange_code():
         'client_id': client_id,
         'client_secret': client_secret,
     }
-    print(f'payload: {payload}')
 
     # Make the request
     response = requests.post(token_url, data=payload)
