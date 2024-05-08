@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams, useSearchParams, useLocation } from 'react-router-dom';
 import './GenerateResults.css';
 
@@ -12,8 +12,16 @@ const GenerateResults = () => {
     const [results, setResults] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const fetchOnce = useRef(false);
 
     useEffect(() => {
+        if (fetchOnce.current || !categories) {
+            setLoading(false);
+            return;
+        }
+
+        fetchOnce.current = true;
+
         const token = localStorage.getItem('spotify_access_token');
 
         if (!token) {
@@ -43,12 +51,7 @@ const GenerateResults = () => {
             }
         };
 
-        if (categories) {
-            fetchResults();
-        } else {
-            setError('No categories available for generation');
-            setLoading(false);
-        }
+        fetchResults();
     }, [playlistId, numCategories, categories]);
 
     return (

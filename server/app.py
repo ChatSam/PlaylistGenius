@@ -8,7 +8,7 @@ from flask_cors import CORS
 import requests
 
 from lib import load_tracks, load_genres, add_genre_information_to_tracks, get_audio_features_for_tracks, \
-    create_shuffled_list_of_genres, get_categories, format_categories, categorize_tracks
+    create_shuffled_list_of_genres, get_categories, format_categories, categorize_tracks, generate_spotify_playlists
 
 app = Flask(__name__)
 CORS(app)
@@ -63,7 +63,8 @@ def generate_playlists():
     playlist_id = request.args.get('playlist_id')
     # get category data from POST request body
     categories = request.json['categories']
-    categorized_tracks = categorize_tracks(playlist_id, categories)
+    generate_spotify_playlists(token, playlist_id, categories)
+    categorized_tracks = categorize_tracks(token, playlist_id, categories)
     return jsonify(categorized_tracks)
 
 

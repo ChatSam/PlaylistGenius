@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import './Categories.css';
 
@@ -10,8 +10,12 @@ const Categories = () => {
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const fetchOnce = useRef(false); // Prevent multiple fetches
 
     useEffect(() => {
+        if (fetchOnce.current) return; // Avoid multiple calls
+        fetchOnce.current = true;
+
         const token = localStorage.getItem('spotify_access_token');
 
         if (!token) {

@@ -1,3 +1,4 @@
+from datetime import datetime
 import random
 import re
 from pathlib import Path
@@ -286,7 +287,31 @@ def categorize_track(categories_output, track):
     else:
         raise ValueError("Failed to extract category information from LLM output")
 
-def categorize_tracks(playlist_id, categories):
+def generate_spotify_playlists(token, playlist_id, categories):
+    sp = spotipy.Spotify(auth=token)
+
+    print('Creating playlists')
+    user_id = sp.current_user()['id']
+    playlist_nane = sp.playlist(playlist_id)['name']
+    for category in categories:
+        category_name = category['category_name'].replace('*', '')
+        description = re.sub(r'\n+', ' ', category['description'])[:512]
+        category['category_number'] = str(category['category_number'])
+
+        timestamp = datetime.now().isoformat()[:16].replace(':', '')
+        playlist_name = f"{playlist_nane} - {category_name.replace('*', '')}_{timestamp}"
+        result = sp.user_playlist_create(user=user_id,
+                                         name=playlist_name,
+                                         public=False,
+                                         description=description)
+        created_playlist_id = result['id']
+        category['playlist_id'] = created_playlist_id
+
+    return categories
+
+def categorize_tracks(token, playlist_id, categories):
+    sp = spotipy.Spotify(auth=token)
+
     categories_output = format_categories(categories)
     df = pd.read_pickle(f'playlist-{playlist_id}.pkl')
     categorized_tracks = [[] for _ in range(len(categories))]
@@ -317,6 +342,9 @@ def categorize_tracks(playlist_id, categories):
                                                       # 'time_signature': track['time_signature'],
                                                       # 'category_name': category_name,
                                                       'reasoning': reasoning})
+        new_playlist_id = categories[category_number-1]['playlist_id']
+        sp.playlist_add_items(playlist_id=new_playlist_id, items=[track['uri']])
+
         # done[category_number-1] = True
 
     return categorized_tracks
