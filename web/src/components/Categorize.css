@@ -1,0 +1,23 @@
+/* Categorize.css */
+
+.categorize-container {
+    width: 80%;
+    margin: 0 auto;
+    color: white;
+    text-align: center;
+}
+
+.back-button, .generate-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #1db954;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.back-button:hover, .generate-button:hover {
+    background-color: #18a744;
+}
+

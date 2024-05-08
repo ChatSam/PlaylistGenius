@@ -1,5 +1,6 @@
 import os
 
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
@@ -7,9 +8,12 @@ import requests
 app = Flask(__name__)
 CORS(app)
 
+load_dotenv()
+
 client_id = os.environ.get('CLIENT_ID', '61a763c599484a729f9b5a31c1057143')
 client_secret = os.environ.get('CLIENT_SECRET')
 redirect_uri = os.environ.get('REDIRECT_URI', 'http://localhost:3000')
+
 
 @app.route('/exchange-code', methods=['GET'])
 def exchange_code():
@@ -24,6 +28,7 @@ def exchange_code():
         'client_id': client_id,
         'client_secret': client_secret,
     }
+    print(f'payload: {payload}')
 
     # Make the request
     response = requests.post(token_url, data=payload)
@@ -33,7 +38,8 @@ def exchange_code():
         # Send the access token back to the frontend
         return jsonify(response.json())
     else:
+        print(response.json())
         return jsonify({"error": "Failed to retrieve access token"}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)

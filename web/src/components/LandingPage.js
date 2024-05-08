@@ -6,7 +6,7 @@ const clientId = '61a763c599484a729f9b5a31c1057143'; // Replace with your Spotif
 const redirectUri = 'http://localhost:3000'; // Replace with your app's redirect URI
 const scope = 'playlist-read-private playlist-modify-private playlist-modify-public';
 const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}`;
-const backendUrl = 'http://localhost:5000'; // Replace with your backend server's URL
+const backendUrl = 'http://127.0.0.1:5000'; // Replace with your backend server's URL
 const LandingPage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
