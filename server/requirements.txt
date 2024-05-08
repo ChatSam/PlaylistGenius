@@ -1,4 +1,9 @@
 Flask
 flask-cors
+langchain
+openai
+pandas
 python-dotenv
 requests
+spotipy
+tqdm

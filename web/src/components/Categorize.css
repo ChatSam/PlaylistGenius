@@ -1,6 +1,6 @@
-/* Categorize.css */
+/* Categories.css */
 
-.categorize-container {
+.categories-container {
     width: 80%;
     margin: 0 auto;
     color: white;
@@ -11,18 +11,49 @@ h2 {
     color: #1db954;
 }
 
-select {
+.categories-list {
     margin-top: 20px;
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    border: 1px solid #1db954;
-    border-radius: 10px;
-    outline: none;
-    font-size: 16px;
-    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-select:focus {
-    border-color: #18a744;
+.category {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    width: 30%;
+    min-width: 250px;
+    text-align: left;
+}
+
+h3 {
+    color: #1db954;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 5px 0;
+}
+
+.button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #1db954;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #18a744;
 }
