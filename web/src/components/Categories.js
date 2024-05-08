@@ -14,6 +14,7 @@ const Categories = () => {
 
     useEffect(() => {
         if (fetchOnce.current) return;
+        fetchOnce.current = true; // Mark as fetched before calling the API
 
         const token = localStorage.getItem('spotify_access_token');
 
@@ -25,7 +26,7 @@ const Categories = () => {
 
         const fetchCategories = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/categories?token=${token}&playlist_id=${playlistId}&num_categories=${numCategories}`);
+                const response = await fetch(`http://localhost:5000/categories?token=${token}&playlist_id=${playlistId}&num_categories=${numCategories}&no-cache=${Date.now()}`);
                 const data = await response.json();
                 if (response.ok) {
                     setCategories(data);
@@ -36,7 +37,6 @@ const Categories = () => {
                 setError('An error occurred while fetching categories');
             } finally {
                 setLoading(false);
-                fetchOnce.current = true; // Mark as fetched
             }
         };
 
