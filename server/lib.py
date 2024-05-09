@@ -322,7 +322,11 @@ def categorize_tracks(token, playlist_id, categories):
     categorized_tracks = []
 
     for i, track in tqdm(df.iterrows(), total=len(df)):
-        category_number, category_name, reasoning = categorize_track(categories_output, track)
+        try:
+            category_number, category_name, reasoning = categorize_track(categories_output, track)
+        except ValueError as e:
+            print(f'Error: {e}')
+            continue
         categorized_tracks.append({'track_name': track['name'],
                                                       'artists': track['artists'],
                                                       'album': track['album'],
@@ -365,7 +369,11 @@ def stream_categorization(token, playlist_id, categories):
 
     first = True
     for i, track in tqdm(df.iterrows(), total=len(df)):
-        category_number, category_name, reasoning = categorize_track(categories_output, track)
+        try:
+            category_number, category_name, reasoning = categorize_track(categories_output, track)
+        except ValueError as e:
+            print(f'Error: {e}')
+            continue
         track_info = {
             'thumbnail_url': track['thumbnail_url'],
             'track_name': track['name'],
