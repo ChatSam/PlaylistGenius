@@ -117,6 +117,24 @@
     background-color: #333;
 }
 
+.song-thumbnail {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+}
+
+.no-thumbnail {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background-color: #444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #b3b3b3;
+    font-size: 12px;
+}
+
 .button {
     margin-top: 20px;
     padding: 10px 20px;

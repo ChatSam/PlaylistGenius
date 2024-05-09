@@ -167,6 +167,7 @@ const GenerateResults = () => {
                             <table className="songs-table">
                                 <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Track Name</th>
                                     <th>Artists</th>
                                     <th>Album</th>
@@ -177,6 +178,17 @@ const GenerateResults = () => {
                                 <tbody>
                                 {results[sanitizeCategoryName(categories[activeTab].category_name)]?.map((song, index) => (
                                     <tr key={index}>
+                                        <td>
+                                            {song.thumbnail_url ? (
+                                                <img
+                                                    src={song.thumbnail_url}
+                                                    alt={`${song.track_name} Thumbnail`}
+                                                    className="song-thumbnail"
+                                                />
+                                            ) : (
+                                                <div className="no-thumbnail">No Image</div>
+                                            )}
+                                        </td>
                                         <td>{song.track_name}</td>
                                         <td>{song.artists.join(', ')}</td>
                                         <td>{song.album}</td>

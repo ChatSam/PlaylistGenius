@@ -38,6 +38,9 @@ def load_tracks(token, playlist_id):
         if track['id'] in df.index:
             continue
 
+        album_images = track['album'].get('images', [])
+        thumbnail_url = album_images[0]['url'] if album_images else None
+
         d = {'id': track['id'],
              'uri': track['uri'],
              'popularity': track['popularity'],
@@ -45,7 +48,8 @@ def load_tracks(token, playlist_id):
              'artists': [artist['name'] for artist in track['artists']],
              'artists_id': [artist['id'] for artist in track['artists']],
              'name': track['name'],
-             'release_date': track['album']['release_date']}
+             'release_date': track['album']['release_date'],
+             'thumbnail_url': thumbnail_url}
         items.append(d)
 
     if len(items) > 0:
@@ -363,6 +367,7 @@ def stream_categorization(token, playlist_id, categories):
     for i, track in tqdm(df.iterrows(), total=len(df)):
         category_number, category_name, reasoning = categorize_track(categories_output, track)
         track_info = {
+            'thumbnail_url': track['thumbnail_url'],
             'track_name': track['name'],
             'artists': track['artists'],
             'album': track['album'],
