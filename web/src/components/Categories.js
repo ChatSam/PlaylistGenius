@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import './Categories.css';
 
+const sanitizeCategoryName = (name) => name.replace(/\*/g, '');
+
 const Categories = () => {
     const navigate = useNavigate();
     const { playlistId } = useParams();
@@ -59,7 +61,7 @@ const Categories = () => {
                 <div className="categories-list">
                     {categories.map((category) => (
                         <div key={category.category_number} className="category">
-                            <h3>{category.category_name}</h3>
+                            <h3>{sanitizeCategoryName(category.category_name)}</h3>
                             <p>{category.description}</p>
                         </div>
                     ))}
