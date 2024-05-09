@@ -27,7 +27,7 @@ python app.py
 
 ### Install
 ```
-cd client
+cd web
 npm ci
 ```
 
