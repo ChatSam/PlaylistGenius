@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams, useLocation } from 'react-router-dom';
 import './Categories.css';
 
 const sanitizeCategoryName = (name) => name.replace(/\*/g, '');
@@ -9,6 +9,8 @@ const Categories = () => {
     const { playlistId } = useParams();
     const [searchParams] = useSearchParams();
     const numCategories = searchParams.get('numCategories') || 5;
+    const { state } = useLocation();
+    const { playlistName = playlistId, totalTracks } = state || {};
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -50,7 +52,8 @@ const Categories = () => {
     return (
         <div className="categories-container">
             <button className="button" onClick={() => navigate(-1)}>Back</button>
-            <h2>Categories for Playlist: {playlistId}</h2>
+            <h2>Categories for Playlist: "{playlistName}"</h2>
+            <p>Number of Tracks: {totalTracks}</p>
             <p>Number of Categories: {numCategories}</p>
 
             {loading ? (

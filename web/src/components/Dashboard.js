@@ -61,7 +61,12 @@ const Dashboard = () => {
     }, [fetchPlaylists, isLoading]);
 
     const handlePlaylistClick = (playlist) => {
-        navigate(`/categorize/${playlist.id}`);
+        navigate(`/categorize/${playlist.id}`, {
+            state: {
+                playlistName: playlist.name,
+                totalTracks: playlist.tracks.total
+            }
+        });
     };
 
     if (error) {

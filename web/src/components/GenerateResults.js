@@ -10,10 +10,9 @@ const GenerateResults = () => {
     const [searchParams] = useSearchParams();
     const numCategories = searchParams.get('numCategories') || 5;
     const { state } = useLocation();
-    const { categories: initialCategories } = state || {};
+    const { categories: initialCategories, playlistName = playlistId, totalTracks } = state || {};
     const [results, setResults] = useState({});
     const [categories, setCategories] = useState(initialCategories || []);
-    const [totalTracks, setTotalTracks] = useState(0);
     const [processedTracks, setProcessedTracks] = useState(0);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -35,22 +34,6 @@ const GenerateResults = () => {
             setLoading(false);
             return;
         }
-
-        const fetchTotalTracks = async () => {
-            try {
-                const response = await fetch(`http://localhost:5000/total-tracks?playlist_id=${playlistId}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setTotalTracks(data.total_tracks);
-                } else {
-                    const errorData = await response.json();
-                    setError(errorData.error || 'Unable to fetch total tracks');
-                }
-            } catch (error) {
-                console.error('An error occurred while fetching total tracks:', error);
-                setError('An error occurred while fetching total tracks');
-            }
-        };
 
         const fetchResults = async () => {
             try {
@@ -126,7 +109,6 @@ const GenerateResults = () => {
             }
         };
 
-        fetchTotalTracks();
         fetchResults();
     }, [playlistId, numCategories, categories]);
 
@@ -139,7 +121,9 @@ const GenerateResults = () => {
     return (
         <div className="generate-results-container">
             <button className="button" onClick={() => navigate(-1)}>Back</button>
-            <h2>Generated Results for Playlist: {playlistId}</h2>
+            <h2>Generated Results for Playlist: "{playlistName}"</h2>
+            <p>Number of Tracks: {totalTracks}</p>
+            <p>Number of Categories: {numCategories}</p>
 
             {loading ? (
                 <p>Loading results...</p>
