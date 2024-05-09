@@ -3,12 +3,13 @@ load_dotenv()
 
 import os
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response, stream_with_context
 from flask_cors import CORS
 import requests
 
 from lib import load_tracks, load_genres, add_genre_information_to_tracks, get_audio_features_for_tracks, \
-    create_shuffled_list_of_genres, get_categories, format_categories, categorize_tracks, generate_spotify_playlists
+    create_shuffled_list_of_genres, get_categories, format_categories, categorize_tracks, generate_spotify_playlists, \
+    stream_categorization
 
 app = Flask(__name__)
 CORS(app)
@@ -64,8 +65,8 @@ def generate_playlists():
     # get category data from POST request body
     categories = request.json['categories']
     generate_spotify_playlists(token, playlist_id, categories)
-    categorized_tracks = categorize_tracks(token, playlist_id, categories)
-    return jsonify(categorized_tracks)
+    # categorized_tracks = categorize_tracks(token, playlist_id, categories)
+    return Response(stream_with_context(stream_categorization(token, playlist_id, categories)), mimetype='application/json')
 
 
 

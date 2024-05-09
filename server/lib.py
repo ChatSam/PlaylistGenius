@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 import random
 import re
@@ -314,14 +315,11 @@ def categorize_tracks(token, playlist_id, categories):
 
     categories_output = format_categories(categories)
     df = pd.read_pickle(f'playlist-{playlist_id}.pkl')
-    categorized_tracks = [[] for _ in range(len(categories))]
+    categorized_tracks = []
 
-    # done = [False for _ in range(len(categories))]
     for i, track in tqdm(df.iterrows(), total=len(df)):
-        # if all(done):
-        #     break
         category_number, category_name, reasoning = categorize_track(categories_output, track)
-        categorized_tracks[category_number-1].append({'track_name': track['name'],
+        categorized_tracks.append({'track_name': track['name'],
                                                       'artists': track['artists'],
                                                       'album': track['album'],
                                                       'release_date': track['release_date'],
@@ -340,11 +338,45 @@ def categorize_tracks(token, playlist_id, categories):
                                                       # 'tempo': track['tempo'],
                                                       # 'duration_ms': track['duration_ms'],
                                                       # 'time_signature': track['time_signature'],
-                                                      # 'category_name': category_name,
+                                                      'category_name': category_name,
+                                                    'category_number': category_number,
                                                       'reasoning': reasoning})
         new_playlist_id = categories[category_number-1]['playlist_id']
         sp.playlist_add_items(playlist_id=new_playlist_id, items=[track['uri']])
 
-        # done[category_number-1] = True
-
     return categorized_tracks
+
+
+def stream_categorization(token, playlist_id, categories):
+    sp = spotipy.Spotify(auth=token)
+    categories_output = format_categories(categories)
+    df = pd.read_pickle(f'playlist-{playlist_id}.pkl')
+    categorized_tracks = []
+
+    yield '[\n'
+
+    first = True
+    for i, track in tqdm(df.iterrows(), total=len(df)):
+        category_number, category_name, reasoning = categorize_track(categories_output, track)
+        track_info = {
+            'track_name': track['name'],
+            'artists': track['artists'],
+            'album': track['album'],
+            'release_date': track['release_date'],
+            'category_name': category_name,
+            'category_number': category_number,
+            'reasoning': reasoning
+        }
+        categorized_tracks.append(track_info)
+
+        new_playlist_id = categories[category_number - 1]['playlist_id']
+        sp.playlist_add_items(playlist_id=new_playlist_id, items=[track['uri']])
+
+        if not first:
+            yield ',\n'
+        else:
+            first = False
+
+        yield json.dumps(track_info)
+
+    yield '\n]'
