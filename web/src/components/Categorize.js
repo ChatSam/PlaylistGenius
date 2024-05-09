@@ -20,9 +20,14 @@ const Categorize = () => {
 
     return (
         <div className="categorize-container">
-            <button className="button" onClick={() => navigate(-1)}>Back</button>
-            <h2>Categorize Playlist: "{playlistName}"</h2>
-            <p>Number of Tracks: {totalTracks}</p>
+            <div className="header">
+                <button className="button" onClick={() => navigate(-1)}>Back</button>
+                <h2>Categorize Playlist: "{playlistName}"</h2>
+                <button className="button" onClick={handleGenerate}>Generate</button>
+            </div>
+            <div className="details">
+                <p>Number of Tracks: {totalTracks}</p>
+            </div>
             <label>
                 Number of Categories:
                 <select value={numCategories} onChange={(e) => setNumCategories(Number(e.target.value))}>
@@ -31,7 +36,6 @@ const Categorize = () => {
                     ))}
                 </select>
             </label>
-            <button className="button" onClick={handleGenerate}>Generate</button>
         </div>
     );
 };

@@ -5,21 +5,15 @@
     text-align: center;
 }
 
-.label {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    display: block;
-    font-weight: bold;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-select {
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    background-color: #1a1a1a;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
+.details {
+    margin-bottom: 20px;
 }
 
 .button {
@@ -36,4 +30,14 @@ select {
 
 .button:hover {
     background-color: #18a744;
+}
+
+select {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    background-color: #1a1a1a;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
 }
