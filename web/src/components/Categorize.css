@@ -1,45 +1,25 @@
-/* Categories.css */
-
-.categories-container {
-    width: 80%;
+.categorize-container {
+    width: 60%;
     margin: 0 auto;
     color: white;
     text-align: center;
 }
 
-h2 {
-    color: #1db954;
-}
-
-.categories-list {
+.label {
     margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: bold;
 }
 
-.category {
+select {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
     background-color: #1a1a1a;
-    border: 1px solid #333;
+    color: white;
     border-radius: 10px;
-    padding: 20px;
-    margin: 10px;
-    width: 30%;
-    min-width: 250px;
-    text-align: left;
-}
-
-h3 {
-    color: #1db954;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    margin: 5px 0;
+    cursor: pointer;
 }
 
 .button {

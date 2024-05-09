@@ -10,7 +10,7 @@ const Categories = () => {
     const [searchParams] = useSearchParams();
     const numCategories = searchParams.get('numCategories') || 5;
     const { state } = useLocation();
-    const { playlistName = playlistId, totalTracks } = state || {};
+    const { playlistName, totalTracks } = state || {};
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -45,16 +45,21 @@ const Categories = () => {
 
     const handleGenerate = () => {
         navigate(`/generate-results/${playlistId}`, {
-            state: { categories }
+            state: { categories, playlistName, totalTracks }
         });
     };
 
     return (
         <div className="categories-container">
-            <button className="button" onClick={() => navigate(-1)}>Back</button>
-            <h2>Categories for Playlist: "{playlistName}"</h2>
-            <p>Number of Tracks: {totalTracks}</p>
-            <p>Number of Categories: {numCategories}</p>
+            <div className="header">
+                <button className="button" onClick={() => navigate(-1)}>Back</button>
+                <h2>Categories for Playlist: "{playlistName}"</h2>
+                <button className="button" onClick={handleGenerate}>Generate</button>
+            </div>
+            <div className="details">
+                <p>Number of Tracks: {totalTracks}</p>
+                <p>Number of Categories: {numCategories}</p>
+            </div>
 
             {loading ? (
                 <p>Loading categories...</p>
@@ -70,8 +75,6 @@ const Categories = () => {
                     ))}
                 </div>
             )}
-
-            <button className="button" onClick={handleGenerate}>Generate</button>
         </div>
     );
 };
