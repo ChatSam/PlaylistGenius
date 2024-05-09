@@ -122,7 +122,7 @@ const GenerateResults = () => {
         <div className="generate-results-container">
             <div className="header">
                 <button className="button" onClick={() => navigate(-1)}>Back</button>
-                <h2>Generated Results for Playlist: "{playlistName}"</h2>
+                <h2 className="results-title">Generated Results for Playlist: "{playlistName}"</h2>
             </div>
             <div className="details">
                 <p>Number of Tracks: {totalTracks}</p>

@@ -14,6 +14,13 @@
     margin-bottom: 20px;
 }
 
+.results-title {
+    text-align: center;
+    margin: 0 0 10px;
+    color: #1db954;
+    font-weight: bold;
+}
+
 .details {
     margin-bottom: 20px;
 }
