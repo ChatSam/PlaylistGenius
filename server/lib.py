@@ -347,6 +347,10 @@ def categorize_tracks(token, playlist_id, categories):
     return categorized_tracks
 
 
+def get_total_tracks(playlist_id):
+    return pd.read_pickle(f'playlist-{playlist_id}.pkl').shape[0]
+
+
 def stream_categorization(token, playlist_id, categories):
     sp = spotipy.Spotify(auth=token)
     categories_output = format_categories(categories)

@@ -9,7 +9,7 @@ import requests
 
 from lib import load_tracks, load_genres, add_genre_information_to_tracks, get_audio_features_for_tracks, \
     create_shuffled_list_of_genres, get_categories, format_categories, categorize_tracks, generate_spotify_playlists, \
-    stream_categorization
+    stream_categorization, get_total_tracks
 
 app = Flask(__name__)
 CORS(app)
@@ -58,15 +58,27 @@ def create_categories():
     categories = get_categories(num_categories, genres_text)
     return jsonify(categories)
 
+@app.route('/total-tracks', methods=['GET'])
+def total_tracks():
+    playlist_id = request.args.get('playlist_id')
+    return jsonify({"total_tracks":  get_total_tracks(playlist_id)})
+
 @app.route('/generate', methods=['POST'])
 def generate_playlists():
     token = request.args.get('token')
     playlist_id = request.args.get('playlist_id')
     # get category data from POST request body
     categories = request.json['categories']
+    total_tracks = get_total_tracks(playlist_id)
+
     generate_spotify_playlists(token, playlist_id, categories)
-    # categorized_tracks = categorize_tracks(token, playlist_id, categories)
-    return Response(stream_with_context(stream_categorization(token, playlist_id, categories)), mimetype='application/json')
+
+    response = Response(
+        stream_with_context(stream_categorization(token, playlist_id, categories)),
+        mimetype='application/json'
+    )
+    response.headers['X-Total-Tracks'] = str(total_tracks)
+    return response
 
 
 

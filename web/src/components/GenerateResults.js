@@ -13,6 +13,8 @@ const GenerateResults = () => {
     const { categories: initialCategories } = state || {};
     const [results, setResults] = useState({});
     const [categories, setCategories] = useState(initialCategories || []);
+    const [totalTracks, setTotalTracks] = useState(0);
+    const [processedTracks, setProcessedTracks] = useState(0);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState(0);
@@ -33,6 +35,22 @@ const GenerateResults = () => {
             setLoading(false);
             return;
         }
+
+        const fetchTotalTracks = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/total-tracks?playlist_id=${playlistId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setTotalTracks(data.total_tracks);
+                } else {
+                    const errorData = await response.json();
+                    setError(errorData.error || 'Unable to fetch total tracks');
+                }
+            } catch (error) {
+                console.error('An error occurred while fetching total tracks:', error);
+                setError('An error occurred while fetching total tracks');
+            }
+        };
 
         const fetchResults = async () => {
             try {
@@ -60,8 +78,11 @@ const GenerateResults = () => {
                     dynamicResults[sanitizedName] = [];
                 });
 
+                setResults({ ...dynamicResults });
+
                 const updateResults = () => {
                     setResults({ ...dynamicResults });
+                    setProcessedTracks(Object.values(dynamicResults).flat().length);
                 };
 
                 while (true) {
@@ -105,12 +126,15 @@ const GenerateResults = () => {
             }
         };
 
+        fetchTotalTracks();
         fetchResults();
     }, [playlistId, numCategories, categories]);
 
     const handleTabClick = (index) => {
         setActiveTab(index);
     };
+
+    const progressPercentage = totalTracks ? Math.round((processedTracks / totalTracks) * 100) : 0;
 
     return (
         <div className="generate-results-container">
@@ -123,16 +147,27 @@ const GenerateResults = () => {
                 <p>{error}</p>
             ) : (
                 <div className="results-content">
+                    <div className="progress-bar">
+                        <div
+                            className="progress-bar-fill"
+                            style={{ width: `${progressPercentage}%` }}
+                        ></div>
+                        <span className="progress-bar-text">
+                            Processed {processedTracks} of {totalTracks} tracks ({progressPercentage}%)
+                        </span>
+                    </div>
+
                     <ul className="tabs">
                         {categories.map((category, index) => {
                             const sanitizedCategoryName = sanitizeCategoryName(category.category_name);
+                            const trackCount = results[sanitizedCategoryName]?.length || 0;
                             return (
                                 <li
                                     key={index}
                                     className={`tab ${activeTab === index ? 'active' : ''}`}
                                     onClick={() => handleTabClick(index)}
                                 >
-                                    {sanitizedCategoryName}
+                                    {sanitizedCategoryName} ({trackCount})
                                 </li>
                             );
                         })}
