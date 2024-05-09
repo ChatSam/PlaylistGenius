@@ -120,10 +120,23 @@ const GenerateResults = () => {
 
     return (
         <div className="generate-results-container">
-            <button className="button" onClick={() => navigate(-1)}>Back</button>
-            <h2>Generated Results for Playlist: "{playlistName}"</h2>
-            <p>Number of Tracks: {totalTracks}</p>
-            <p>Number of Categories: {numCategories}</p>
+            <div className="header">
+                <button className="button" onClick={() => navigate(-1)}>Back</button>
+                <h2>Generated Results for Playlist: "{playlistName}"</h2>
+            </div>
+            <div className="details">
+                <p>Number of Tracks: {totalTracks}</p>
+                <p>Number of Categories: {numCategories}</p>
+                <div className="progress-bar">
+                    <div
+                        className="progress-bar-fill"
+                        style={{ width: `${progressPercentage}%` }}
+                    ></div>
+                    <span className="progress-bar-text">
+                        Processed {processedTracks} of {totalTracks} tracks ({progressPercentage}%)
+                    </span>
+                </div>
+            </div>
 
             {loading ? (
                 <p>Loading results...</p>
@@ -131,16 +144,6 @@ const GenerateResults = () => {
                 <p>{error}</p>
             ) : (
                 <div className="results-content">
-                    <div className="progress-bar">
-                        <div
-                            className="progress-bar-fill"
-                            style={{ width: `${progressPercentage}%` }}
-                        ></div>
-                        <span className="progress-bar-text">
-                            Processed {processedTracks} of {totalTracks} tracks ({progressPercentage}%)
-                        </span>
-                    </div>
-
                     <ul className="tabs">
                         {categories.map((category, index) => {
                             const sanitizedCategoryName = sanitizeCategoryName(category.category_name);
