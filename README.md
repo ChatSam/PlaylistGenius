@@ -9,8 +9,8 @@ The tool analyzes users' existing playlists, generates dynamic categories based 
 ## Installation Instructions
 
 1. **Prerequisites**
-    - Python
-    - NodeJs
+    - Python version 3.10+
+    - NodeJs version 22
 
 2. **Clone this repository**
 
