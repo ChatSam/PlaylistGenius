@@ -1,5 +1,6 @@
 # PlaylistGenius
-**Description:** Spotify Playlist Curation Tool that transforms how users experience their music libraries. 
+**Description:** 
+Spotify Playlist Curation Tool that transforms how users experience their music libraries. 
 Traditional playlist organization methods based on simple genres or artist names don't always capture the nuanced vibes listeners seek.
 The tool analyzes users' existing playlists, generates dynamic categories based on song metadata and genres, and curates new, personalized playlists tailored to diverse listening preferences by leveraging LLM capabilities.
 
@@ -10,9 +11,10 @@ The tool analyzes users' existing playlists, generates dynamic categories based 
     - Python
     - NodeJs
 
-1. **Clone the repository**
+2. **Clone this repository**
 
-1. **Installing the dependencies**
+3. **Installing the dependencies**
+
 Install for Macbooks 
 ```
 cd server
@@ -38,7 +40,8 @@ cd ..
 cd web
 npm ci
 ```
-1. **Configuration**
+4. **Configuration**
+
 Create .env file with the following content:
 ```
 CLIENT_ID=...
@@ -47,7 +50,7 @@ REDIRECT_URI=http://localhost:3000
 OPENAI_API_KEY=...
 ```
 
-1. **Execution**
+5. **Execution**
 
 Open two terminals or powershells
 
@@ -61,7 +64,7 @@ npm start
 ```
 
 
-# How to use
+## How to use
 
 1. Click on "Login to Spotify" in the center of the page and log in to your Spotify account.
 2. Choose a playlist you want to classify. The playlist name and the number of songs will be displayed on the left and right sides.
