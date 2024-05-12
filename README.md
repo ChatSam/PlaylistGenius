@@ -1,24 +1,44 @@
 # PlaylistGenius
+**Description:** Spotify Playlist Curation Tool that transforms how users experience their music libraries. 
+Traditional playlist organization methods based on simple genres or artist names don't always capture the nuanced vibes listeners seek.
+The tool analyzes users' existing playlists, generates dynamic categories based on song metadata and genres, and curates new, personalized playlists tailored to diverse listening preferences by leveraging LLM capabilities.
 
-## Server
 
-### Install for Mac 
+## Installation Instructions
+
+1. **Prerequisites**
+    - Python
+    - NodeJs
+
+1. **Clone the repository**
+
+1. **Installing the dependencies**
+Install for Macbooks 
 ```
 cd server
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-```
 
-### Install for Windows 
+cd ..
+cd web
+npm ci
+
+```
+Install for Windows 
+
 ```
 cd server
 python -m venv venv
 Set-ExecutionPolicy Unrestricted -Scope Process (This would allow running virtualenv in the current PowerShell session.)
 venv\Scripts\activate
 pip install -r requirements.txt
-```
 
+cd ..
+cd web
+npm ci
+```
+1. **Configuration**
 Create .env file with the following content:
 ```
 CLIENT_ID=...
@@ -27,23 +47,19 @@ REDIRECT_URI=http://localhost:3000
 OPENAI_API_KEY=...
 ```
 
-### Run
+1. **Execution**
+
+Open two terminals or powershells
+
+Terminal 1:
 ```
 python app.py
 ```
-
-## Client
-
-### Install
-```
-cd web
-npm ci
-```
-
-### Run
+Terminal 2:
 ```
 npm start
 ```
+
 
 # How to use
 
