@@ -1,5 +1,6 @@
 # PlaylistGenius
 **Description:** 
+
 Spotify Playlist Curation Tool that transforms how users experience their music libraries. 
 Traditional playlist organization methods based on simple genres or artist names don't always capture the nuanced vibes listeners seek.
 The tool analyzes users' existing playlists, generates dynamic categories based on song metadata and genres, and curates new, personalized playlists tailored to diverse listening preferences by leveraging LLM capabilities.
