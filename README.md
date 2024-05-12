@@ -2,11 +2,20 @@
 
 ## Server
 
-### Install
+### Install for Mac 
 ```
 cd server
 python -m venv venv
 source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Install for Windows 
+```
+cd server
+python -m venv venv
+Set-ExecutionPolicy Unrestricted -Scope Process (This would allow running virtualenv in the current PowerShell session.)
+venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
