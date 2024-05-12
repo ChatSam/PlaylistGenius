@@ -10,7 +10,9 @@ from langchain.prompts import PromptTemplate
 import pandas as pd
 import spotipy
 from tqdm import tqdm
+import logging
 
+logger = logging.getLogger(__name__)
 
 def load_tracks(token, playlist_id):
     sp = spotipy.Spotify(auth=token)
@@ -60,6 +62,7 @@ def load_tracks(token, playlist_id):
 
         df.to_pickle(f'playlist-{playlist_id}.pkl')
     else:
+        logger.info('No new tracks found')
         print('No new tracks')
 
 def load_genres(token, playlist_id):
@@ -87,6 +90,7 @@ def load_genres(token, playlist_id):
                 results = sp.artists(all_artists[offset:offset+page])
             except Exception as e:
                 # print(f'Error: {e}')
+                logger.error(f'Error: {e}')
                 break
             offset += page
 
@@ -102,6 +106,7 @@ def load_genres(token, playlist_id):
 
         df_artists.to_pickle(f'artists.pkl')
     else:
+        logger.info('No new artists found')
         print('No new artists')
 
 def add_genre_information_to_tracks(token, playlist_id):
@@ -132,7 +137,9 @@ def add_genre_information_to_tracks(token, playlist_id):
 
         df.to_pickle(f'playlist-{playlist_id}.pkl')
         print(f'Added genre information to {len(items)} tracks')
+        logger.info(f'Added genre information to {len(items)} tracks')
     else:
+        logger.info('No genre information added')
         print('No genre information added.')
 
 def get_audio_features_for_tracks(token, playlist_id):
@@ -156,6 +163,7 @@ def get_audio_features_for_tracks(token, playlist_id):
                 results = sp.audio_features(track_ids[offset:offset+page])
             except Exception as e:
                 # print(f'Error: {e}')
+                logger.error(f'Error: {e}')
                 break
             offset += page
 
@@ -180,6 +188,7 @@ def get_audio_features_for_tracks(token, playlist_id):
         df.to_pickle(f'playlist-{playlist_id}.pkl')
     else:
         print('No new audio features')
+        logger.info('No new audio features')
 
 def create_shuffled_list_of_genres(playlist_id):
     df = pd.read_pickle(f'playlist-{playlist_id}.pkl')
@@ -290,6 +299,7 @@ def categorize_track(categories_output, track):
 
         return category_number, category_name, reasoning
     else:
+        logger.error("ValueError : Failed to extract category information from LLM output")
         raise ValueError("Failed to extract category information from LLM output")
 
 def generate_spotify_playlists(token, playlist_id, categories):
@@ -325,6 +335,7 @@ def categorize_tracks(token, playlist_id, categories):
         try:
             category_number, category_name, reasoning = categorize_track(categories_output, track)
         except ValueError as e:
+            logger.error(f'Error: {e}')
             print(f'Error: {e}')
             continue
         categorized_tracks.append({'track_name': track['name'],
@@ -372,6 +383,7 @@ def stream_categorization(token, playlist_id, categories):
         try:
             category_number, category_name, reasoning = categorize_track(categories_output, track)
         except ValueError as e:
+            logger.error(f'Error: {e}')
             print(f'Error: {e}')
             continue
         track_info = {
