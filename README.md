@@ -73,3 +73,9 @@ npm start
 4. Wait for the AI classification to complete. You can track the progress of the classification from the progress bar at the top.
 
 ## Contribution
+
+1.Source code. 
+2.Test code (like unit test cases).
+3.Documentation 
+4.Readme file
+5.video
