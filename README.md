@@ -71,3 +71,5 @@ npm start
 2. Choose a playlist you want to classify. The playlist name and the number of songs will be displayed on the left and right sides.
 3. Select the number of categories you want to classify, which should not exceed the number of songs in the playlist. Click on the "Generate" button to generate category names and descriptions based on your selection.
 4. Wait for the AI classification to complete. You can track the progress of the classification from the progress bar at the top.
+
+## Contribution
