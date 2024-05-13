@@ -8,13 +8,13 @@ The tool analyzes users' existing playlists, generates dynamic categories based 
 
 ## Installation Instructions
 
-1. **Prerequisites**
+### 1. **Prerequisites**
     - Python version 3.10+
     - NodeJs version 22
 
-2. **Clone this repository**
+### 2. **Clone this repository**
 
-3. **Installing the dependencies**
+### 3. **Installing the dependencies**
 
 Install for Macbooks 
 ```
@@ -41,7 +41,7 @@ cd ..
 cd web
 npm ci
 ```
-4. **Configuration**
+### 4. **Configuration**
 
 Create .env file with the following content:
 ```
@@ -51,7 +51,7 @@ REDIRECT_URI=http://localhost:3000
 OPENAI_API_KEY=...
 ```
 
-5. **Execution**
+### 5. **Execution**
 
 Open two terminals or powershells
 
@@ -65,17 +65,16 @@ npm start
 ```
 
 
-6. **Unit Tests**
+### 6. **Unit Tests**
 
 To run the unit tests 
 ```
 # navigate to the test folder 
-cd  tests/unit/
+cd tests/unit/
 
 # run the test 
 pytest test_unit.py
 ```
-
 
 
 ## How to use
@@ -85,12 +84,14 @@ pytest test_unit.py
 3. Select the number of categories you want to classify, which should not exceed the number of songs in the playlist. Click on the "Generate" button to generate category names and descriptions based on your selection.
 4. Wait for the AI classification to complete. You can track the progress of the classification from the progress bar at the top.
 
-## Contribution
+### Video showcasing the features 
+<div style="display: flex; justify-content: center;">
+  <video width="640" height="480" controls>
+    <source src="./docs/demo_vid.webm" type="video/webm">
+  </video>
+</div>
 
-1. Source code. 
-2. Test code.
-3. Documentation 
-4. Readme file
-5. video
 
-
+<p align="center">
+  <a href="https://drive.google.com/file/d/1BGU3JGHngOQEYC0OuHm_bt39WNVBJJpK/view?usp=sharing">Video Link to showcase the features</a>
+</p>
