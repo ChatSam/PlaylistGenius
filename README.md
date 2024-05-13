@@ -85,12 +85,7 @@ pytest test_unit.py
 4. Wait for the AI classification to complete. You can track the progress of the classification from the progress bar at the top.
 
 ### Video showcasing the features 
-<div style="display: flex; justify-content: center;">
-  <video width="640" height="480" controls>
-    <source src="./docs/demo_vid.webm" type="video/webm">
-  </video>
-</div>
-
+[demo_vid.webm](https://github.com/ChatSam/PlaylistGenius/assets/6478266/7bda5990-8575-4ea3-8399-92d5fbbb1b30)
 
 <p align="center">
   <a href="https://drive.google.com/file/d/1BGU3JGHngOQEYC0OuHm_bt39WNVBJJpK/view?usp=sharing">Video Link to showcase the features</a>
