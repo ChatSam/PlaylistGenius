@@ -65,6 +65,19 @@ npm start
 ```
 
 
+6. **Unit Tests**
+
+To run the unit tests 
+```
+# navigate to the test folder 
+cd  tests/unit/
+
+# run the test 
+pytest test_unit.py
+```
+
+
+
 ## How to use
 
 1. Click on "Login to Spotify" in the center of the page and log in to your Spotify account.
@@ -79,3 +92,5 @@ npm start
 3. Documentation 
 4. Readme file
 5. video
+
+
